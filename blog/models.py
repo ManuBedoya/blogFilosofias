@@ -12,3 +12,6 @@ class Post(models.Model):
 
     def getDetail(self):
         return f'Title: {self.title}\nContent: {self.content}'
+
+    def getShortContent(self):
+        return self.content if len(self.content) < 100 else f'{self.content[:250]}...'

@@ -1,10 +1,10 @@
-blog list
-<br />
-{%for post in posts%}
-    <a href= {%url 'blog:detail' post.id %} post.id >{{post}}</a>
-    <a href={%url 'blog:update' post.id%}>Edit</a>
-    <a href={%url 'blog:delete' post.id%}>Delete</a>    
-    <br />
-{% endfor %}
-<br />
-<a href="{%url 'blog:create'%}">Create Post</a>
+{% extends 'base.html' %} {% block content %}
+<div class="grid grid-cols-3 h-full justify-between">
+    {% for post in posts %}
+    <div class="mx-10 my-10 bg-black text-[#ffff]"><h2 class="py-5 text-center">{{post.title}}</h2><p class="px-5">{{post.getShortContent}}</p></div>
+    {% endfor %}
+    
+  <div class="self-end justify-self-center"><button><a class="bg-green-500 px-5 py-3 te rounded" href= {% url 'blog:create' %}>Nuevo Post</a></button></div>
+</div>
+
+{% endblock content %}

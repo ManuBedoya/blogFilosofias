@@ -1,10 +1,6 @@
-Blog create
-<br>
+{%extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
 <form method="POST">
-    {% csrf_token %}
-    Title: {{form.title}}
-    <br>
-    Content: {{form.content}}
-    <br>
-    <button type="submit">Crear</button>
+  {% csrf_token %} {{form | crispy}}
+  <button class="bg-green-500 px-5 py-3 rounded" type="submit">Crear</button>
 </form>
+{% endblock content %}
