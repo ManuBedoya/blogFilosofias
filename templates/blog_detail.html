@@ -1,3 +1,25 @@
-Blog detail
-<br />
-{{post.getDetail | linebreaks}}
+{% extends 'base.html' %} {% block content %}
+<div
+  class="flex flex-col {% if post.isContentShort %}h-full{% endif %}"
+>
+  <div>
+    <h1 class="text-[50px] w-full text-center">{{post}}</h1>
+    <content class="px-10">{{post.getContent | linebreaks}}</content>
+  </div>
+  <hr class="border-4 border-black"/>
+  <div class="grid grid-col-4 grid-flow-row">
+    <h2 class="text-[20px] col-span-4">Tambien te podría interesar:</h2>
+    {% for aux in posts %}
+    <a href={% url 'blog:detail' aux.id %} class="mx-10 my-10 bg-black text-[#ffff] rounded-md border-2 drop-shadow-lg">
+        <h2 class="py-5 text-center font-bold">{{aux.title}}</h2>
+        <p class="px-5">{{aux.getShortContent}}</p>
+      </a>
+    {% endfor %}
+  </div>
+  <div class="flex">
+    <div class="flex-auto text-center"><button><a class="bg-yellow-500 px-5 py-3 te rounded s" href= {% url 'blog:update' post.id%}>Editar Post</a></button></div>
+    <div class="flex-auto text-center"><button><a class="bg-red-500 px-5 py-3 te rounded s" href= {% url 'blog:delete' post.id%}>Eliminar Post</a></button></div>
+  </div>
+</div>
+
+{% endblock content %}

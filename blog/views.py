@@ -3,6 +3,7 @@ from django.views.generic import View, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import PostCreateForm
 from .models import Post
+import random
 # Create your views here.
 
 
@@ -42,9 +43,19 @@ class BlogCreateView(View):
 
 class BlogDetailView(View):
     def get(self, request, pk, *args, **kwargs):
+        posts = Post.objects.all()
         post = get_object_or_404(Post, pk=pk)
+        postSelected = []
+        if len(posts) > 4:
+            for i in range(4):
+                includePost = posts[random.randrange(0, len(posts) - 1)]
+                while (includePost in postSelected or includePost == post):
+                    includePost = posts[random.randrange(0, len(posts) - 1)]
+                postSelected.append(includePost)
+
         context = {
-            'post': post
+            'post': post,
+            'posts': postSelected
         }
         return render(request, 'blog_detail.html', context)
 
